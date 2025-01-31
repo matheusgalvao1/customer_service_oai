@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Recruiter Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { max-width: 800px; margin: 20px auto; padding: 0 20px; font-family: Arial, sans-serif; }
+        #messages { height: 400px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+        .message { margin: 10px 0; padding: 8px; border-radius: 4px; }
+        .user { background: #e3f2fd; margin-left: 20%; }
+        .assistant { background: #f5f5f5; margin-right: 20%; }
+        #message-input { width: 70%; padding: 8px; margin-right: 10px; }
+        button { padding: 8px 16px; background: #1976d2; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #1565c0; }
+    </style>
+</head>
+<body>
+    <div id="chat-area" style="display: none;">
+        <div id="messages"></div>
+        <div style="display: flex; margin-top: 10px;">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <div id="start-chat" style="text-align: center; margin-top: 20px;">
+        <button onclick="startNewChat()">Start New Chat</button>
+    </div>
+
+    <script>
+        let currentChatId = null;
+
+        function startNewChat() {
+            $.ajax({
+                url: '/create_chat',
+                method: 'POST',
+                success: function(response) {
+                    currentChatId = response.chat_id;
+                    $('#start-chat').hide();
+                    $('#chat-area').show();
+                    $('#messages').empty();
+                },
+                error: function() {
+                    alert('Error creating chat');
+                }
+            });
+        }
+
+        function sendMessage() {
+            const message = $('#message-input').val().trim();
+            if (!message) return;
+
+            // Add user message
+            $('#messages').append(`<div class="message user">${message}</div>`);
+            $('#message-input').val('');
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
+
+            // Send to server
+            $.ajax({
+                url: '/send_message',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    chat_id: currentChatId,
+                    message: message
+                }),
+                success: function(response) {
+                    $('#messages').append(`<div class="message assistant">${response.message}</div>`);
+                    $('#messages').scrollTop($('#messages')[0].scrollHeight);
+                },
+                error: function() {
+                    alert('Error sending message');
+                }
+            });
+        }
+
+        // Handle Enter key in message input
+        $('#message-input').keypress(function(e) {
+            if (e.which == 13 && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html> 
