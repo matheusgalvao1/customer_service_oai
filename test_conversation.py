@@ -4,7 +4,7 @@ import time
 def run_conversation_test():
     # Start a new chat
     print("\n=== Starting New Chat Session ===\n")
-    response = requests.post('http://localhost:5000/create_chat')
+    response = requests.post('http://localhost:3000/create_chat')
     if response.status_code != 200:
         print("Error creating chat!")
         return
@@ -33,7 +33,7 @@ def run_conversation_test():
         
         # Send message and get response
         response = requests.post(
-            'http://localhost:5000/send_message',
+            'http://localhost:3000/send_message',
             json={
                 'chat_id': chat_id,
                 'message': question
@@ -51,7 +51,7 @@ def run_conversation_test():
         time.sleep(1)
 
 if __name__ == "__main__":
-    print("Make sure the Flask application is running on http://localhost:5000")
+    print("Make sure the Flask application is running on http://localhost:3000")
     print("Starting conversation test in 3 seconds...")
     time.sleep(3)
     run_conversation_test() 
