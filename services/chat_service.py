@@ -8,21 +8,31 @@ class ChatService:
     def __init__(self):
         self.chat_manager = ChatManager()
         self.openai_client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-        self.cover_letter = self._load_cover_letter()
+        self.company_info = self._load_company_info()
+        self.system_prompt = self._load_system_prompt()
     
-    def _load_cover_letter(self) -> str:
-        """Load the cover letter from file."""
+    def _load_company_info(self) -> str:
+        """Load the company information from file."""
         try:
-            with open('data/cover_letter.txt', 'r') as f:
+            with open('data/company_info.txt', 'r') as f:
                 return f.read()
         except Exception as e:
-            print(f"Error loading cover letter: {e}")
-            return "Sample cover letter not found."
+            print(f"Error loading company information: {e}")
+            return "Company information not found."
+    
+    def _load_system_prompt(self) -> str:
+        """Load the system prompt from file."""
+        try:
+            with open('data/system_prompt.txt', 'r') as f:
+                return f.read()
+        except Exception as e:
+            print(f"Error loading system prompt: {e}")
+            return "You are a helpful customer service representative for TechCare Solutions."
     
     def create_chat(self, user_id: str) -> str:
-        """Create a new chat session with the fixed cover letter."""
+        """Create a new chat session with the company information context."""
         chat_id = str(uuid.uuid4())
-        self.chat_manager.create_chat(user_id, chat_id, self.cover_letter)
+        self.chat_manager.create_chat(user_id, chat_id, self.company_info)
         return chat_id
     
     def process_message(self, user_id: str, chat_id: str, message: str) -> Tuple[Optional[str], Optional[str]]:
@@ -40,6 +50,16 @@ class ChatService:
         try:
             # Get AI response
             conversation = self.chat_manager.get_conversation(user_id, chat_id)
+            
+            # Add system message for customer service context
+            system_message = {
+                "role": "system",
+                "content": self.system_prompt
+            }
+            
+            # Add system message at the beginning of the conversation
+            conversation.insert(0, system_message)
+            
             response = self.openai_client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=conversation,

@@ -1,0 +1,62 @@
+Welcome to TechCare Solutions
+
+About Us:
+TechCare Solutions is a leading technology services company specializing in IT consulting, software development, and digital transformation. We help businesses leverage technology to achieve their goals and stay competitive in the digital age.
+
+Services:
+1. IT Consulting
+- Strategic technology planning
+- Digital transformation roadmaps
+- Technology stack optimization
+- Cloud migration strategies
+
+2. Software Development
+- Custom software solutions
+- Mobile app development
+- Web applications
+- Enterprise software integration
+
+3. Cloud Services
+- Cloud migration
+- Cloud infrastructure management
+- Cloud security solutions
+- Hybrid cloud architecture
+
+4. Cybersecurity
+- Security assessments
+- Threat detection and prevention
+- Security compliance
+- Data protection solutions
+
+Business Hours:
+Monday - Friday: 9:00 AM - 6:00 PM EST
+Saturday: 10:00 AM - 2:00 PM EST
+Sunday: Closed
+
+Contact Information:
+Phone: 1-800-TECH-CARE
+Email: support@techcaresolutions.com
+Address: 123 Innovation Drive, Tech City, TC 12345
+
+Scheduling Appointments:
+- Book online: www.techcaresolutions.com/schedule
+- Call our scheduling team: 1-800-TECH-CARE ext. 2
+- Email: appointments@techcaresolutions.com
+
+Support Options:
+- 24/7 Emergency IT Support for Enterprise Clients
+- Regular Business Hours Support for All Clients
+- Online Knowledge Base and Documentation
+- Video Tutorials and Guides
+
+Pricing:
+- Basic Support Plan: $99/month
+- Professional Plan: $299/month
+- Enterprise Plan: Custom pricing
+- One-time consultations: $150/hour
+
+Response Time Commitments:
+- Critical Issues: < 1 hour
+- High Priority: < 4 hours
+- Normal Priority: < 24 hours
+- Low Priority: < 48 hours 
